@@ -1,7 +1,9 @@
 import time
 import random
 from typing import Iterable
-from src.task import Task
+from src.contracts.task import Task
+from src.enums.priority_enum import PriorityEnum
+from src.enums.status_enum import StatusEnum
 
 
 class TaskSourceAPI:
@@ -18,4 +20,6 @@ class TaskSourceAPI:
         """
         for i in range(len(self.fake_data)):
             time.sleep(random.randint(1, 4))
-            yield Task(task_id="api_" + str(i), payload=self.fake_data[i])
+            yield Task(self.fake_data[i],
+                       priority=random.choice([PriorityEnum.SUPER_HIGH, PriorityEnum.HIGH, PriorityEnum.NORMAL, PriorityEnum.LOW, PriorityEnum.SUPER_LOW]),
+                       status=random.choice([StatusEnum.SCHEDULED, StatusEnum.ERROR, StatusEnum.COMPLETED]))

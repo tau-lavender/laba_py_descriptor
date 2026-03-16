@@ -1,4 +1,4 @@
-from src.task import Task
+from src.contracts.task import Task
 from typing import Iterable, Protocol, runtime_checkable
 
 

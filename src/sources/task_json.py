@@ -1,21 +1,6 @@
 import json
-from typing import Any, Iterable
-from src.task import Task
-
-
-def parse_json_file(line: str, path: str, line_no: int) -> dict[str, Any]:
-    """
-    Парсит json
-    :line: строка из json
-    :path: путь к файлу
-    :line_no: номер строки в файле
-    :return: словарь айди:полезная нагрузка
-    """
-
-    try:
-        return json.loads(line)
-    except json.JSONDecodeError as error:
-        raise ValueError(f"bad JSON at {path}:{line_no}: {error}") from error
+from typing import Iterable
+from src.contracts.task import Task
 
 
 class TaskSourceJSON:
@@ -38,7 +23,17 @@ class TaskSourceJSON:
                 line = line.strip()
                 if not line:
                     continue
-                raw = parse_json_file(line, self.filename, line_no)
-                task_id = str(raw.get("id", f"{self.filename}:{line_no}"))
+                raw = json.loads(line)
                 payload = raw.get("payload", "")
-                yield Task(task_id, payload)
+                if payload == "":
+                    raise ValueError("No payload in json {filename}, line {line_no}")
+                priority = raw.get("priority", "")
+                status = raw.get("status", "")
+                if priority == "" and status == "":
+                    yield Task(payload)
+                if priority != "" and status == "":
+                    yield Task(payload, priority=priority)
+                if priority == "" and status != "":
+                    yield Task(payload, status=status)
+                if priority != "" and status != "":
+                    yield Task(payload, priority=priority, status=status)

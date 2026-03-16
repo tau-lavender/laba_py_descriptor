@@ -1,4 +1,3 @@
-{"id": "1", "payload": "task from json"}
-{"id": "2", "payload": "another task from json"}
-{"id": "3", "payload": "Json Statham"}
-{"payload": "task no id in json"}
+{"payload": "task from json"}
+{"payload": "another task from json", "priority": "HIGH"}
+{"payload": "Json Statham", "status": "ERROR"}

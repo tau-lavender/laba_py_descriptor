@@ -1,7 +1,7 @@
-from src.task_source import TaskSource
-from src.task_json import TaskSourceJSON
-from src.task_gen import TaskSourceGen
-from src.task_api import TaskSourceAPI
+from src.contracts.task_source import TaskSource
+from src.sources.task_json import TaskSourceJSON
+from src.sources.task_gen import TaskSourceGen
+from src.sources.task_api import TaskSourceAPI
 
 
 def main() -> None:
@@ -18,7 +18,7 @@ def main() -> None:
 
         print(f"collecting tasks from {source.__class__.__name__}")
         for task in source.get_tasks():
-            print(f"do task payload: {task.task_id}")
+            print("do task payload")
             if not isinstance(task.payload, str):
                 raise TypeError(f"{task.payload} not string")
             print(task.payload)
