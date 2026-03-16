@@ -16,7 +16,7 @@ from src.enums.status_enum import StatusEnum, TRANSITIONS
 
 
 @dataclass(slots=True)
-class Task:
+class Task(object):
     """
     Task dataclass
     Хранит данные о задаче
@@ -28,7 +28,7 @@ class Task:
 
     __creation_time: datetime
     __id: int
-    __id_counter: count = count(-1)
+    _id_counter = count(0)
 
     def __init__(self,
                  payload: object = None,
@@ -45,7 +45,7 @@ class Task:
         self.__priority = priority
         self.__status = status
 
-        self.__id = next(self.__id_counter)
+        self.__id = next(Task._id_counter)
         self.__creation_time = datetime.now()
 
     @property

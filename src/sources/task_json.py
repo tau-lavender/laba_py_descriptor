@@ -1,6 +1,8 @@
 import json
 from typing import Iterable
 from src.contracts.task import Task
+from src.enums.priority_enum import PriorityEnum
+from src.enums.status_enum import StatusEnum
 
 
 class TaskSourceJSON:
@@ -28,12 +30,16 @@ class TaskSourceJSON:
                 if payload == "":
                     raise ValueError("No payload in json {filename}, line {line_no}")
                 priority = raw.get("priority", "")
+                if priority in [en.name for en in PriorityEnum]:
+                    enum_priority = PriorityEnum[priority]
                 status = raw.get("status", "")
+                if status in [en.name for en in StatusEnum]:
+                    enum_status = StatusEnum[status]
                 if priority == "" and status == "":
                     yield Task(payload)
                 if priority != "" and status == "":
-                    yield Task(payload, priority=priority)
+                    yield Task(payload, priority=enum_priority)
                 if priority == "" and status != "":
-                    yield Task(payload, status=status)
+                    yield Task(payload, status=enum_status)
                 if priority != "" and status != "":
-                    yield Task(payload, priority=priority, status=status)
+                    yield Task(payload, priority=enum_priority, status=enum_status)

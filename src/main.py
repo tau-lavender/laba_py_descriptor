@@ -18,7 +18,7 @@ def main() -> None:
 
         print(f"collecting tasks from {source.__class__.__name__}")
         for task in source.get_tasks():
-            print("do task payload")
+            print(f"do task id: {task.id}, priority: {task.priority.name}, status: {task.status.value}")
             if not isinstance(task.payload, str):
                 raise TypeError(f"{task.payload} not string")
             print(task.payload)
