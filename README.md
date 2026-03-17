@@ -5,7 +5,7 @@
 ---
 ## Начало работы
 ```bash
-uv vevn
+uv venv
 uv sync
 source .venv/bin/activate
 # для Windows: .venv\Scripts\activate
