@@ -35,4 +35,4 @@ python -m src.main
 Источник задач, генерирующий задачи с задержкой по времени
 
 ## Покрытие
-TODO
+![](https://github.com/tau-lavender/laba_py_descriptor/blob/main/img/cov.png)
