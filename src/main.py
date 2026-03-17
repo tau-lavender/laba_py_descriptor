@@ -18,10 +18,10 @@ def main() -> None:
 
         print(f"collecting tasks from {source.__class__.__name__}")
         for task in source.get_tasks():
-            print(f"do task id: {task.id}, priority: {task.priority.name}, status: {task.status.value}")
+            print(f"do task id: {task.id}\n\tpriority: {task.priority.name}\n\tstatus: {task.status.value}\n\ttime of creation: {task.creation_time}")
             if not isinstance(task.payload, str):
                 raise TypeError(f"{task.payload} not string")
-            print(task.payload)
+            print("\t" + task.payload)
         print()
 
 

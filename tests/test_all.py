@@ -1,11 +1,14 @@
 import pytest  # type: ignore
+from datetime import datetime
 
 from src.main import main
-from src.task import Task
-from src.task_source import TaskSource
-from src.task_json import TaskSourceJSON
-from src.task_gen import TaskSourceGen
-from src.task_api import TaskSourceAPI
+from src.contracts.task import Task
+from src.contracts.task_source import TaskSource
+from src.sources.task_json import TaskSourceJSON
+from src.sources.task_gen import TaskSourceGen
+from src.sources.task_api import TaskSourceAPI
+from src.enums.priority_enum import PriorityEnum
+from src.enums.status_enum import StatusEnum
 
 
 class TestMain:
@@ -15,11 +18,12 @@ class TestMain:
 
 class TestTask:
     def test_task_init(self):
-        task_id = "1"
         payload = "ababa"
-        task = Task(task_id=task_id, payload=payload)
-        assert task.task_id == task_id
+        task = Task(payload=payload)
         assert task.payload == payload
+        assert isinstance(task.creation_time, datetime)
+        assert task.priority == PriorityEnum.NORMAL
+        assert task.status == StatusEnum.SCHEDULED
 
 
 class TestTaskSource:
